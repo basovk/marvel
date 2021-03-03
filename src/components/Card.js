@@ -4,15 +4,11 @@ import './Card.css'
 import { faBookmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Card = ({ char_name, onClick }) => {
+const Card = ({ char_name, char_image, onClick }) => {
   return (
     <div className='card-container'>
       <div className='char_image-container'>
-        <img
-          src='https://avatarfiles.alphacoders.com/149/149117.jpg'
-          alt={char_name}
-          className='char_image'
-        />
+        <img src={char_image} alt={char_name} className='char_image' />
       </div>
       <div className='header-container'>
         <div className='char_text-container'>
