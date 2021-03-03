@@ -11,6 +11,8 @@ import './App.css'
 const App = () => {
   const [characters, setCharacters] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [searchedChars, setSearchedChars] = useState([])
+  const [keyword, setKeyword] = useState('')
 
   const getCharacters = async () => {
     try {
@@ -28,20 +30,40 @@ const App = () => {
     }
   }
 
+  const onChange = (e) => {
+    setKeyword(e.target.value)
+  }
+
   useEffect(() => {
     getCharacters()
   }, [])
+
+  useEffect(() => {
+    setSearchedChars(
+      characters.filter((character) =>
+        character.name.toLowerCase().includes(keyword.toLowerCase())
+      )
+    )
+  }, [keyword, characters])
+
+  let displayedChars
+
+  if (keyword === '') {
+    displayedChars = characters
+  } else {
+    displayedChars = searchedChars
+  }
 
   return (
     <>
       <Header />
       <main className='main-container'>
         <div className='search-box'>
-          <Search />
+          <Search value={keyword} onChange={onChange} />
         </div>
         {!isLoading && (
           <div className='grid-layout'>
-            {characters.map((character) => (
+            {displayedChars.map((character) => (
               <Card
                 key={character.id}
                 char_name={character.name}
