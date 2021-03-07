@@ -32,3 +32,21 @@
 .search-input:focus {
   outline: none;
 }
+
+@media only screen and (max-width: 480px) {
+  /* Mobile phones */
+  .search-input {
+    font-size: 1.2rem;
+  }
+
+  .search-box-container {
+    width: 70%;
+  }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 968px) {
+  /* Tablets */
+  .char_text {
+    font-size: 1.3rem;
+  }
+}

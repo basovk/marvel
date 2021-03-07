@@ -14,14 +14,14 @@ const Card = ({ char_name, char_image, onClick }) => {
         <div className='char_text-container'>
           <h2 className='char_text'>{char_name}</h2>
         </div>
-        <div className='icon-container'>
+        <button className='icon-container' onClick={onClick}>
           <FontAwesomeIcon
             icon={faBookmark}
             size='lg'
-            style={{ color: '#dee2e6', cursor: 'pointer' }}
-            onClick={onClick}
+            id={char_name}
+            className='icon'
           />
-        </div>
+        </button>
       </div>
     </div>
   )

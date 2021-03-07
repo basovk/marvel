@@ -20,3 +20,15 @@
   height: 2.9rem;
   width: 7rem;
 }
+
+@media only screen and (max-width: 480px) {
+  /* Mobile phones */
+  .text {
+    font-size: 1.8rem;
+  }
+
+  .logo {
+    height: 2.2rem;
+    width: 4rem;
+  }
+}

@@ -13,6 +13,22 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [searchedChars, setSearchedChars] = useState([])
   const [keyword, setKeyword] = useState('')
+  const [touched, setTouched] = useState(false)
+
+  const handleClickCard = (character) => {
+    let itemsFromStorage = JSON.parse(localStorage.getItem('bookmarkedChars'))
+    let storedChars = itemsFromStorage || []
+    if (storedChars === null || storedChars.length === 0) {
+      storedChars.push(character)
+    } else if (storedChars.find((char) => char.name === character.name)) {
+      storedChars = itemsFromStorage.filter(
+        (char) => char.name !== character.name
+      )
+    } else {
+      storedChars = [...storedChars, character]
+    }
+    localStorage.setItem('bookmarkedChars', JSON.stringify(storedChars))
+  }
 
   const getCharacters = async () => {
     try {
@@ -32,6 +48,7 @@ const App = () => {
 
   const onChange = (e) => {
     setKeyword(e.target.value)
+    setTouched(true)
   }
 
   useEffect(() => {
@@ -48,10 +65,18 @@ const App = () => {
 
   let displayedChars
 
-  if (keyword === '') {
+  if (!touched && keyword === '') {
     displayedChars = characters
-  } else {
+  } else if (touched && keyword !== '') {
     displayedChars = searchedChars
+  } else {
+    let itemsFromStorage = JSON.parse(localStorage.getItem('bookmarkedChars'))
+
+    if (itemsFromStorage === null) {
+      displayedChars = searchedChars
+    } else {
+      displayedChars = itemsFromStorage
+    }
   }
 
   return (
@@ -68,6 +93,7 @@ const App = () => {
                 key={character.id}
                 char_name={character.name}
                 char_image={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                onClick={() => handleClickCard(character)}
               />
             ))}
           </div>

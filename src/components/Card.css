@@ -17,6 +17,17 @@
   justify-content: flex-end;
   align-self: center;
   flex: 1;
+  border: none;
+  background-color: white;
+}
+
+.icon-container:focus {
+  outline: none;
+}
+
+.icon {
+  color: #dee2e6;
+  cursor: pointer;
 }
 
 .char_text-container {
