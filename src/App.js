@@ -14,18 +14,22 @@ const App = () => {
   const [searchedChars, setSearchedChars] = useState([])
   const [keyword, setKeyword] = useState('')
   const [touched, setTouched] = useState(false)
+  const [isActive, setIsActive] = useState(false)
 
   const handleClickCard = (character) => {
     let itemsFromStorage = JSON.parse(localStorage.getItem('bookmarkedChars'))
     let storedChars = itemsFromStorage || []
     if (storedChars === null || storedChars.length === 0) {
       storedChars.push(character)
+      setIsActive(true)
     } else if (storedChars.find((char) => char.name === character.name)) {
       storedChars = itemsFromStorage.filter(
         (char) => char.name !== character.name
       )
+      setIsActive(false)
     } else {
       storedChars = [...storedChars, character]
+      setIsActive(true)
     }
     localStorage.setItem('bookmarkedChars', JSON.stringify(storedChars))
   }
@@ -93,7 +97,10 @@ const App = () => {
                 key={character.id}
                 char_name={character.name}
                 char_image={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                onClick={() => handleClickCard(character)}
+                onClick={() => {
+                  handleClickCard(character)
+                  setIsActive(!isActive)
+                }}
               />
             ))}
           </div>
