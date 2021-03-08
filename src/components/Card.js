@@ -4,7 +4,7 @@ import './Card.css'
 import { faBookmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Card = ({ char_name, char_image, onClick, bookmarked }) => {
+const Card = ({ char_id, char_name, char_image, onClick, bookmarked }) => {
   return (
     <div className='card-container'>
       <div className='char_image-container'>
@@ -18,6 +18,7 @@ const Card = ({ char_name, char_image, onClick, bookmarked }) => {
           <FontAwesomeIcon
             icon={faBookmark}
             size='lg'
+            id={char_id}
             className={`${bookmarked ? 'icon-bookmarked' : 'icon'}`}
             onClick={onClick}
           />

@@ -21,15 +21,15 @@ const App = () => {
     let storedChars = itemsFromStorage || []
     if (storedChars === null || storedChars.length === 0) {
       storedChars.push(character)
-      setIsActive(true)
+      document.getElementById(character.id).classList.add('icon-bookmarked')
     } else if (storedChars.find((char) => char.name === character.name)) {
       storedChars = itemsFromStorage.filter(
         (char) => char.name !== character.name
       )
-      setIsActive(false)
+      document.getElementById(character.id).classList.remove('icon-bookmarked')
     } else {
       storedChars = [...storedChars, character]
-      setIsActive(true)
+      document.getElementById(character.id).classList.add('icon-bookmarked')
     }
     localStorage.setItem('bookmarkedChars', JSON.stringify(storedChars))
   }
@@ -97,6 +97,7 @@ const App = () => {
                 key={character.id}
                 char_name={character.name}
                 char_image={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                char_id={character.id}
                 onClick={() => {
                   handleClickCard(character)
                   setIsActive(!isActive)
